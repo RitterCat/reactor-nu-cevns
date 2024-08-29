@@ -134,7 +134,7 @@ def makeSpectrum(energies,dataSets,fractions):
   for i,fraction in enumerate(fractions):
     dataSets[i] = dataSets[i]*fraction
     spectrum=numpy.add(spectrum,dataSets[i])
-  #Normalize by bin size so sums to neutrinos/fission (actually, I don't do this, as I want my units to be per MeV)
+  #Normalize by bin size so sums to neutrinos/fission (AR: actually, I don't do this, as I want my units to be per MeV)
   #spectrum=[i*estep for i in spectrum]
   #Return combined spectrum
   return spectrum
