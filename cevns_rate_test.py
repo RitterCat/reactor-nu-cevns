@@ -5,7 +5,7 @@
 import numpy as np
 from scipy.interpolate import CubicSpline
 from scipy.integrate import quad
-import matplotlib.pyplot as plt
+from scipy.stats import poisson
 import pymultinest
 
 #############
@@ -197,21 +197,38 @@ if __name__ =='__main__':
     thermal_power = GIGAWATT
     true_fuel_fractions = [1,0,0,0]
 
-    false_fuel_fractions = [0,0,0,1]
-
     # specify bin properties (nbins, ERmin, ERmax)
     nbins = 5
     ER_min = 0.1*keV # this is the threshold value
     ER_max = get_ER_max(FLUX_ENU_MAX, mT)
 
-    bin_width = ( ER_max - ER_min ) / nbins
+    bin_edges = np.logspace(np.log10(ER_min), np.log10(ER_max), nbins+1)
 
     true_bin_counts = []
-    false_bin_counts = []
 
     for i in range(nbins):
-        true_bin_counts.append(quad(dR_dER, ER_min + i*bin_width, ER_min + (i+1)*bin_width, args=(detector_material, true_fuel_fractions, thermal_power, offset))[0]*KILOGRAM*YEAR)
-        false_bin_counts.append(quad(dR_dER, ER_min + i*bin_width, ER_min + (i+1)*bin_width, args=(detector_material, false_fuel_fractions, thermal_power, offset))[0]*KILOGRAM*YEAR)
+        true_bin_counts.append(quad(dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, true_fuel_fractions, thermal_power, offset))[0]*KILOGRAMDAY)
 
-    print(true_bin_counts)
-    print(false_bin_counts)
+    def prior(cube, ndim, nparams):
+        cube[0] = cube[0] # f_U235, can be anything between zero and 1
+        cube[1] = cube[1] * (1 - cube[0]) # f_U238, cannot be greater than 1 - f_U235
+        cube[2] = cube[2] * (1 - cube[0] - cube[1]) # f_Pu239, cannot be greater than 1 - f_U235 - f_U238
+        # f_Pu241 is now specified by the choices of the other three fractions
+
+        return
+
+    def loglike(cube, ndim, nparams):
+
+        fuel_fractions = [cube[0], cube[1], cube[2], 1 - cube[0] - cube[1] - cube[2]]
+
+        bin_counts = []
+
+        for i in range(nbins):
+            bin_counts.append(quad(dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, fuel_fractions, thermal_power, offset))[0]*KILOGRAMDAY)
+        
+        loglikelihood = 0
+        for bc, tbc in zip(bin_counts, true_bin_counts):
+            logPoisson = - tbc + bc * np.log(tbc)
+            loglikelihood += logPoisson
+        
+        return loglikelihood
