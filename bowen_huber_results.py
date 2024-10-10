@@ -1,5 +1,3 @@
-from dis import dis
-from xml.etree.ElementTree import ElementTree
 from lib.lib_rates import *
 
 def table_II():
@@ -48,7 +46,7 @@ def total_IBD_rate(fuel_fractions, thermal_power, L):
 
         sigma_IBD = (2*np.pi/(ELECTRON_MASS**5 * IBD_PHASE_SPACE_FRACTION * NEUTRON_LIFETIME)) * Ee * pe
 
-        return 2*(flux_norm/mT)*flux(Enu)*sigma_IBD # the factor of 2 is for the two protons in CH2
+        return 6*(flux_norm/mT)*flux(Enu)*sigma_IBD # the factor of 2 is for the six protons in CH2
 
     return quad(integrand, ENU_IBD_THRESHOLD, FLUX_ENU_MAX)[0]
 

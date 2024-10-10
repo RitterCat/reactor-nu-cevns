@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 n_pars=3
 parameters= ['f_U235', 'f_U238', 'f_Pu239']
 
-a = pymultinest.Analyzer(n_pars, outputfiles_basename="out/u235")
+a = pymultinest.Analyzer(n_pars, outputfiles_basename="out/ff2323/2323")
 
 p = pymultinest.PlotMarginalModes(a)
 plt.figure(figsize=(5*n_pars, 5*n_pars))
