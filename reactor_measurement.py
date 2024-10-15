@@ -31,7 +31,7 @@ if __name__ =='__main__':
 
     bin_edges = np.logspace(np.log10(ER_min), np.log10(ER_max), nbins+1)
 
-    def get_bin_counts(fuel_fractions, thermal_power):
+    def get_bin_counts(fuel_fractions, thermal_power, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
         bin_counts = []
         for i in range(nbins):
             bin_counts.append(np.floor(quad(dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, fuel_fractions, thermal_power, offset))[0]*KILOGRAM*YEAR))
@@ -59,7 +59,6 @@ if __name__ =='__main__':
 
         fuel_fractions = cube[:4]
         thermal_power = cube[4]
-
 
         true_bin_counts = get_bin_counts(true_fuel_fractions, thermal_power)
 
