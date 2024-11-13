@@ -49,20 +49,59 @@ def plot_first_iteration():
     return
 
 ### SECOND ITERATION ###
+# In this iteration, I generate three random numbers and use them to partition the unit interval [0, 1] into four sections, which I then take as my four fractions
 
 def plot_second_iteration():
     cube = np.random.rand(10000, 3)
 
-    fractions = []
+    fraction_list = []
     for c_list in cube:
         c1, c2, c3 = sorted(c_list)
         f1 = c1
         f2 = c2 - c1
         f3 = c3 - c2
         f4 = 1 - c3
-        fractions.append([f1, f2, f3, f4])
+        fraction_list.append([f1, f2, f3, f4])
 
-    fraction_array = np.array(fractions).T
+    fraction_array = np.array(fraction_list).T
+
+    fig, axes = plt.subplots(2,4, figsize=(10,5))
+
+    for i, (ax, cube_entry) in enumerate(zip(axes[0], cube.T)):
+        ax.hist(cube_entry)
+        ax.set_xlabel(f'cube[{i}]')
+
+    for i, (ax, fraction_list) in enumerate(zip(axes[1], fraction_array)):
+        ax.hist(fraction_list)
+        ax.set_xlabel(f'fraction {i}')
+
+    z = np.linspace(0.05, 1, 50)
+    minus_logz = -1000*np.log(z) # 1000 = npoints/nbins (10000/10)
+    for ax in axes[1]:
+        ax.plot(z, minus_logz, 'k--')
+
+    plt.tight_layout()
+    plt.show()
+
+    return
+
+### THIRD ITERATION ###
+# Here, I am testing the simple idea that Jay suggested: randomly generating four uniform random values and discarding those where the sum is greater than one. 
+# ACTUALLY, picking four random doesn't work, as they will probably sum to less than one.
+# I'm going to try picking three random, and if their sum is less than one, calculate the fourth
+
+def plot_third_iteration():
+
+    cube = np.random.rand(100000, 3)
+
+    fraction_list = []
+    for c_list in cube:
+        if sum(c_list) < 1:
+            f4 = 1 - sum(c_list)
+            fractions = np.append(c_list, f4)
+            fraction_list.append(fractions)
+
+    fraction_array = np.array(fraction_list).T
 
     fig, axes = plt.subplots(2,4, figsize=(10,5))
 
@@ -77,11 +116,81 @@ def plot_second_iteration():
     plt.tight_layout()
     plt.show()
 
+    return
+
+### COMPARING TWO AND THREE
+
+def get_partitioned_fractions():
+    cube = np.random.rand(10000, 3)
+
+    fraction_list = []
+    for c_list in cube:
+        c1, c2, c3 = sorted(c_list)
+        f1 = c1
+        f2 = c2 - c1
+        f3 = c3 - c2
+        f4 = 1 - c3
+        fraction_list.append([f1, f2, f3, f4])
+
+    fraction_array = np.array(fraction_list).T
+
+    return fraction_array
+
+def get_random_fractions():
+
+    cube = np.random.rand(50000, 3)
+
+    fraction_list = []
+    for c_list in cube:
+        if sum(c_list) < 1:
+            f4 = 1 - sum(c_list)
+            fractions = np.append(c_list, f4)
+            fraction_list.append(fractions)
+
+    fraction_array = np.array(fraction_list).T
+
+    return fraction_array
+
+def compare_two_and_three():
+    part_frac = get_partitioned_fractions()
+    rand_frac = get_random_fractions()
+
+    fig, axes = plt.subplots(2,4, figsize=(10,5))
+
+    for i, (ax, fraction_list) in enumerate(zip(axes[0], part_frac)):
+        ax.hist(fraction_list)
+
+    for i, (ax, fraction_list) in enumerate(zip(axes[1], rand_frac)):
+        ax.hist(fraction_list)
+        ax.set_xlabel(f'fraction {i}')
+
+    # z = np.linspace(0.05, 1, 50)
+    # minus_logz = -1*np.log(z)
+
+    # #Getting n_points for each sample allows us to rescale the trial pdf functions correctly
+    # nbins = 10
+    # scale_pf = len(part_frac[0])/nbins
+    # scale_rf = len(rand_frac[0])/nbins
+    # scaling_factors = [scale_pf, scale_rf]
+    # for ax_row, scaling_factor in zip(axes, scaling_factors):
+    #     for ax in ax_row:
+    #         ax.plot(z, scaling_factor*minus_logz, 'k--')
+
+    axes[0][0].set_ylabel('Partitioning [0, 1]')
+    axes[1][0].set_ylabel('Discarding points \n with sum(f) > 1')
+
+    # axes[0][0].text(0.5, 1500, r'$-\log(f)$', fontsize=14)
+    # axes[1][0].text(0.5, 3000, r'$-\log(f)$', fontsize=14)
+
+    plt.tight_layout()
+    plt.show()
 
     return
+
+# They produce the same output! Partitioning [0, 1] is the right idea.
 
 
 ### CODE
 
 if __name__ == "__main__":
-    plot_second_iteration()
+    compare_two_and_three()

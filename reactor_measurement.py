@@ -40,25 +40,31 @@ if __name__ =='__main__':
     ### CUBE ###
 
     def prior(cube, ndim, nparams):
-        # f_U235: can be anything between zero and 1
-        cube[0] = cube[0]
-        # f_U238: cannot be greater than 1 - f_U235
-        cube[1] = cube[1] * (1 - cube[0])
-        # f_Pu239: cannot be greater than 1 - f_U235 - f_U238
-        cube[2] = cube[2] * (1 - cube[0] - cube[1])
-        # f_Pu241: is now specified by the choices of the other three fractions
-        cube[3] = 1 - cube[0] - cube[1] - cube[2]
+        # The first dimension is the reactor power, P
         # P is selected from a normal distribution with mean thermal_power
-        cube[4] = norm.ppf(cube[4], loc=mean_thermal_power, scale = thermal_power_var)
-
+        cube[0] = norm.ppf(cube[0], loc=mean_thermal_power, scale = thermal_power_var)
+        
+        # I then select four fractions that add up to 1 by sorting the next three cube entries and using them to 'partition' the interval [0,1]
+        partitions = sorted(cube[1:4])
+        p1, p2, p3 = partitions
+        f1 = p1
+        f2 = p2 - p1
+        f3 = p3 - p2
+        f4 = 1 - p3
+        # The four fractions are then the first four cube entries: f_U235, f_U238, f_Pu239, f_Pu241
+        cube[1] = f1
+        cube[2] = f2
+        cube[3] = f3
+        cube[4] = f4
+        
         return
 
     ### LOGLIKE ###
 
     def loglike(cube, ndim, nparams):
 
-        fuel_fractions = cube[:4]
-        thermal_power = cube[4]
+        thermal_power = cube[0]
+        fuel_fractions = cube[1:5]
 
         true_bin_counts = get_bin_counts(true_fuel_fractions, thermal_power)
 
@@ -71,10 +77,10 @@ if __name__ =='__main__':
         
         return loglikelihood
 
-    ndims = 3 
-    nparams = 4
+    ndims = 4
+    nparams = 5
 
-    # pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
-    #             outputfiles_basename="out/ff2323/2323", verbose=False,
-    #             importance_nested_sampling = False, resume = False, n_live_points = 100,
-    #             sampling_efficiency=0.8, evidence_tolerance=0.5)
+    pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
+                outputfiles_basename="out/ff2323/partitioned2323", verbose=True,
+                importance_nested_sampling = False, resume = False, n_live_points = 100,
+                sampling_efficiency=0.8, evidence_tolerance=0.5)
