@@ -1,4 +1,3 @@
-import fractions
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -121,7 +120,7 @@ def plot_third_iteration():
 ### COMPARING TWO AND THREE
 
 def get_partitioned_fractions():
-    cube = np.random.rand(10000, 3)
+    cube = np.random.rand(50000, 3)
 
     fraction_list = []
     for c_list in cube:
@@ -138,7 +137,7 @@ def get_partitioned_fractions():
 
 def get_random_fractions():
 
-    cube = np.random.rand(50000, 3)
+    cube = np.random.rand(100000, 3)
 
     fraction_list = []
     for c_list in cube:
@@ -155,14 +154,22 @@ def compare_two_and_three():
     part_frac = get_partitioned_fractions()
     rand_frac = get_random_fractions()
 
-    fig, axes = plt.subplots(2,4, figsize=(10,5))
+    fig, axes = plt.subplots(3,4, figsize=(10,8))
 
+    part_counts = []
     for i, (ax, fraction_list) in enumerate(zip(axes[0], part_frac)):
-        ax.hist(fraction_list)
+        counts, bins, _bars = ax.hist(fraction_list)
+        part_counts.append(counts)
 
+    rand_counts = []
     for i, (ax, fraction_list) in enumerate(zip(axes[1], rand_frac)):
-        ax.hist(fraction_list)
+        counts, _bins, _bars = ax.hist(fraction_list)
+        rand_counts.append(counts)
         ax.set_xlabel(f'fraction {i}')
+
+    for i, (ax, p_counts, r_counts) in enumerate(zip(axes[2], part_counts, rand_counts)):
+        bin_ratios = np.array(p_counts)/np.array(r_counts)
+        ax.bar(bins[:-1], bin_ratios)
 
     # z = np.linspace(0.05, 1, 50)
     # minus_logz = -1*np.log(z)

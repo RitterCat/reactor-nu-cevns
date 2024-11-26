@@ -25,7 +25,7 @@ if __name__ =='__main__':
     true_fuel_fractions = [0.2, 0.3, 0.2, 0.3]
 
     # specify bin properties (nbins, ERmin, ERmax)
-    nbins = 5
+    nbins = 4
     ER_min = 0.1*keV # this is the threshold value
     ER_max = get_ER_max(FLUX_ENU_MAX, mT)
 
@@ -51,7 +51,7 @@ if __name__ =='__main__':
         f2 = p2 - p1
         f3 = p3 - p2
         f4 = 1 - p3
-        # The four fractions are then the first four cube entries: f_U235, f_U238, f_Pu239, f_Pu241
+        # The four fractions are then the next four cube entries: f_U235, f_U238, f_Pu239, f_Pu241
         cube[1] = f1
         cube[2] = f2
         cube[3] = f3
@@ -76,11 +76,15 @@ if __name__ =='__main__':
             loglikelihood += logPoisson
         
         return loglikelihood
+    
+    # the point of this loglikelihood is to return nothing, and so test if the priors are being treated properly, or if there is any weird correlation introduced by our sampling method
+    def zero_loglike(cube, ndim, nparams):
+        return 0
 
     ndims = 4
     nparams = 5
 
     pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
-                outputfiles_basename="out/ff2323/partitioned2323", verbose=True,
+                outputfiles_basename="out/ff2323/partitioned2323_4bins", verbose=True,
                 importance_nested_sampling = False, resume = False, n_live_points = 100,
                 sampling_efficiency=0.8, evidence_tolerance=0.5)
