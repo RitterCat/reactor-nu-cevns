@@ -26,9 +26,9 @@ def dsigma_dER(ER, Enu, isotope):
 
     return prefactor * kinematic_factor * weak_charge**2 * Fhelm(q, A)
 
-def dR_dER(ER, detector_material, fuel_fractions, thermal_power, L):
+def dR_dER(ER, detector_material, fission_rate_per_isotope, L): # fuel_fractions, thermal_power
     
-    flux = lambda Enu: reactor_flux(Enu, fuel_fractions, thermal_power)
+    flux = lambda Enu: reactor_flux(Enu, fission_rate_per_isotope) # fuel_fractions, thermal_power
 
     flux_Enu_min, flux_Enu_max = FLUX_ENU_MIN, FLUX_ENU_MAX
 
@@ -49,10 +49,10 @@ def dR_dER(ER, detector_material, fuel_fractions, thermal_power, L):
 
     return (flux_norm/mT)*sum([unnormalised_rate_per_isotope(isotope) for isotope in ISOTOPES[detector_material]])
 
-def total_CEvNS_rate(threshold, detector_material, fuel_fractions, thermal_power, L):
+def total_CEvNS_rate(threshold, detector_material, fission_rate_per_isotope, L): # fuel_fractions, thermal_power
     
     flux_Enu_max = FLUX_ENU_MAX
 
     mT = mTarget(detector_material)
 
-    return quad(dR_dER, threshold, get_ER_max(flux_Enu_max, mT), args=(detector_material, fuel_fractions, thermal_power, L))[0]
+    return quad(dR_dER, threshold, get_ER_max(flux_Enu_max, mT), args=(detector_material, fission_rate_per_isotope, L))[0]

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Nov 26 17:07:46 2024
+ctioga2\
+  --name partitioned2323_3_combo1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.00026877016664373504:0.8294594287872314\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel '$f_{^{235}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.00026877016664373504,0.3894776383059708 0.8294594287872314,0.3894776383059708 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.03758234980457018,0.3944776383059708 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.00026877016664373504,0.1404589761676311 0.8294594287872314,0.1404589761676311 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.03758234980457018,0.1454589761676311 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.00026877016664373504,0.6061413709433687 0.8294594287872314,0.6061413709433687 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 0.03758234980457018,0.6111413709433687 '68.3\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.00026877016664373504,0.13658649102558368 0.8294594287872314,0.13658649102558368 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 0.03758234980457018,0.14158649102558368 '95.4\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --plot ../..//partitioned2323/parse/partitioned2323_3_like1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Red /color Red /line-style Solid /line-width 0.9\
+  --plot ../..//partitioned2323/parse/partitioned2323_3_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 0.27842398808316526,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.2788559694749802,0.015 Bullet /color 'Black' /scale 0.6 \
+  --draw-marker 0.2,0.017499999999999998 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.2,0.017499999999999998 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

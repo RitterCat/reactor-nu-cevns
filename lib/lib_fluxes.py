@@ -33,9 +33,12 @@ for fi in fissile_isotopes_txtfile_format:
 
     fission_spectra.append(CubicSpline(*spec, extrapolate=False))
 
-def reactor_flux(Enu, fuel_fractions, thermal_power):
+def reactor_flux_old(Enu, fuel_fractions, thermal_power):
     norm_fuel_fractions = np.array(fuel_fractions)/sum(fuel_fractions)
 
     mean_energy_per_fission = sum(norm_fuel_fractions*ENERGY_PER_FISSION_I)
 
     return (thermal_power/mean_energy_per_fission)*sum([fi*spec(Enu) for fi, spec in zip (norm_fuel_fractions, fission_spectra)])
+
+def reactor_flux(Enu, fission_rate_per_isotope):
+    return sum([fission_rate*spec(Enu) for fission_rate, spec in zip (fission_rate_per_isotope, fission_spectra)])

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Nov 27 12:59:30 2024
+ctioga2\
+  --name run1_4_5_combo2D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.21000000000000002,0.05,0.05,0.16\
+  --xrange 0.033740460872650146:0.5287812948226929\
+  --yrange 0.00022922687107074236:0.5384401679039001\
+  --ylabel '$f_{^{239}Pu}$' /shift 2.9\
+  --xlabel '$f_{^{238}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0\
+  --xyz-map\
+  --plot ../../..//ff2323/run1/parse/run1_4_5_post2D.ct2@1:2:3 /color-map '#fff--#fff(contour3)--#29d(0.06085840500130272)--#fff(0.06085840500130272)--#929(0.272880169278704)--#f55(0.272880169278704)--#000'\
+  --plot ../../..//ff2323/run1/parse/run1_4_5_like2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.31700000000000006 /color Grey /style Solid /width 0.9\
+  --draw-contour 0.04599999999999993 /color Grey /style Solid /width 0.9\
+  --plot ../../..//ff2323/run1/parse/run1_4_5_post2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.272880169278704 /color Black /style Solid /width 0.9\
+  --draw-contour 0.06085840500130272 /color Black /style Solid /width 0.9\
+  --draw-marker 0.2530627113711754,0.134428395365502 Star /fill-color 'Grey' /stroke-color 'Grey' /scale 0.8 \
+  --draw-marker 0.29148324902932427,0.18732241883782816 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --draw-marker 0.3,0.2 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.3,0.2 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

@@ -44,7 +44,9 @@ partitioned2323 = (5, POWER_AND_FOUR_FRACTIONS, "out/ff2323/partitioned2323")
 
 partitioned2323_4bins = (5, POWER_AND_FOUR_FRACTIONS, "out/ff2323/partitioned2323_4bins", [1, 4])
 
+ff2323_run1 = (5, POWER_AND_FOUR_FRACTIONS, "out/ff2323/run1", [1, 4])
+
 prior_test = (5, POWER_AND_FOUR_FRACTIONS, "out/prior_test/test")
 
 if __name__ == "__main__":
-    corner_plot(*partitioned2323_4bins)
+    corner_plot(*ff2323_run1)

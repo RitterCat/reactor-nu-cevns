@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Nov 27 12:59:30 2024
+ctioga2\
+  --name run1_4_6_post2D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.21000000000000002,0.05,0.05,0.16\
+  --xrange 0.033740460872650146:0.5287812948226929\
+  --yrange 4.1128904068488126e-05:0.7667141556739807\
+  --ylabel '$f_{^{241}Pu}$' /shift 2.9\
+  --xlabel '$f_{^{238}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --plot ../../..//ff2323/run1/parse/run1_4_6_post2D.ct2@1:2:3 /color-map '#fff--#fff(contour3)--#29d(0.07044407207082451)--#fff(0.07044407207082451)--#929(0.20310117138273995)--#f55(0.20310117138273995)--#000'\
+  --plot ../../..//ff2323/run1/parse/run1_4_6_post2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.20310117138273995 /color Black /style Solid /width 0.9\
+  --draw-contour 0.07044407207082451 /color Black /style Solid /width 0.9\
+  --draw-marker 0.2530627113711754,0.0610763325542949 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 0.29148324902932427,0.2617801231605242 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --draw-marker 0.3,0.3 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.3,0.3 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

@@ -14,32 +14,73 @@ if __name__ =='__main__':
 
     ### FUNCTION TO GET BINNED EVENTS ###
 
-    # specify detector material
+    # specify detector material and properties
     detector_material = 'Xe'
     mT = mTarget(detector_material)
     offset = 10*METER
 
+    threshold = eV
+    exposure=1000*KILOGRAM*YEAR
+
     # specify reactor propeties (including true fuel fractions)
     mean_thermal_power = GIGAWATT
-    thermal_power_var = 0.1*mean_thermal_power
-    true_fuel_fractions = [0.2, 0.3, 0.2, 0.3]
+    thermal_power_var = 0.1*mean_thermal_power # only need this if thermal power is a prior
+    true_fuel_fractions = np.array([0.1, 0.1, 0.4, 0.4])
+
+    # then calculate true fission rate per isotope, which is what we input into the rate calculation
+    mean_energy_per_fission = sum(true_fuel_fractions*ENERGY_PER_FISSION_I)
+    true_total_fission_rate = mean_thermal_power/mean_energy_per_fission
+    true_fission_rate_per_isotope = true_total_fission_rate*true_fuel_fractions
+
+    max_fission_rate = 2*true_total_fission_rate # This is going to be used as the upper limit on my fission rate priors
 
     # specify bin properties (nbins, ERmin, ERmax)
-    nbins = 4
-    ER_min = 0.1*keV # this is the threshold value
+    nbins = 50
+    ER_min = threshold
     ER_max = get_ER_max(FLUX_ENU_MAX, mT)
 
     bin_edges = np.logspace(np.log10(ER_min), np.log10(ER_max), nbins+1)
 
-    def get_bin_counts(fuel_fractions, thermal_power, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
+    def get_bin_counts(fission_rate_per_isotope, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
         bin_counts = []
         for i in range(nbins):
-            bin_counts.append(np.floor(quad(dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, fuel_fractions, thermal_power, offset))[0]*KILOGRAM*YEAR))
+            bin_counts.append(np.floor(quad(
+                dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, fission_rate_per_isotope, offset)
+                )[0]*exposure))
         return bin_counts
+    
+    true_bin_counts = get_bin_counts(true_fission_rate_per_isotope)
 
     ### CUBE ###
 
     def prior(cube, ndim, nparams):
+        # The first four cube entries here are just the fission rates for each isotope
+        f1 = cube[0]*max_fission_rate
+        f2 = cube[1]*max_fission_rate
+        f3 = cube[2]*max_fission_rate
+        f4 = cube[3]*max_fission_rate
+        fission_rates = np.array([f1, f2, f3, f4])
+        cube[0] = f1
+        cube[1] = f2
+        cube[2] = f3
+        cube[3] = f4
+
+        # Now I am storing other parameters in the following cube entries
+        cube[4] = sum(fission_rates*ENERGY_PER_FISSION_I) # total power
+
+        cube[5] = f3 + f4 # total fission rate of plutonium
+
+        # the following four parameters are the 
+        total_fission_rate = sum(fission_rates)
+        fuel_fractions = fission_rates/total_fission_rate
+        cube[6] = fuel_fractions[0]
+        cube[7] = fuel_fractions[1]
+        cube[8] = fuel_fractions[2]
+        cube[9] = fuel_fractions[3]
+
+    def prior_power_four_fractions(cube, ndim, nparams):
+        # This prior is for the previous implementation, where we provided the total reactor power and the fuel fractions
+
         # The first dimension is the reactor power, P
         # P is selected from a normal distribution with mean thermal_power
         cube[0] = norm.ppf(cube[0], loc=mean_thermal_power, scale = thermal_power_var)
@@ -62,6 +103,18 @@ if __name__ =='__main__':
     ### LOGLIKE ###
 
     def loglike(cube, ndim, nparams):
+        fission_rates = cube[:4]
+
+        bin_counts = get_bin_counts(fission_rates)
+
+        loglikelihood = 0
+        for bc, tbc in zip(bin_counts, true_bin_counts):
+            logPoisson = poisson.logpmf(bc, tbc)
+            loglikelihood += logPoisson
+        
+        return loglikelihood
+
+    def loglike_power_four_fractions(cube, ndim, nparams):
 
         thermal_power = cube[0]
         fuel_fractions = cube[1:5]
@@ -82,9 +135,9 @@ if __name__ =='__main__':
         return 0
 
     ndims = 4
-    nparams = 5
+    nparams = 10
 
     pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
-                outputfiles_basename="out/ff2323/partitioned2323_4bins", verbose=True,
-                importance_nested_sampling = False, resume = False, n_live_points = 100,
+                outputfiles_basename="out/ff2323/run3", verbose=True,
+                importance_nested_sampling = False, resume = False, n_live_points = 250,
                 sampling_efficiency=0.8, evidence_tolerance=0.5)

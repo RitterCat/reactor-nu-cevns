@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Nov 27 12:59:29 2024
+ctioga2\
+  --name run1_3_like1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.0003370046615600586:0.9049504995346069\
+  --yrange 0:1\
+  --ylabel 'Profile likelihood ratio $\Lambda=\mathcal{L}/\mathcal{L}_\mathrm{max}$' /shift 2.1\
+  --xlabel '$f_{^{235}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.0003370046615600586,0.6061413709433687 0.9049504995346069,0.6061413709433687 /color 'Black' /style Dashes /width 0.45\
+  --draw-text 0.041044611930847165,0.6111413709433687 '68.3\%CL' /color 'Black' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.0003370046615600586,0.13658649102558368 0.9049504995346069,0.13658649102558368 /color 'Black' /style Dashes /width 0.45\
+  --draw-text 0.041044611930847165,0.14158649102558368 '95.4\%CL' /color 'Black' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//ff2323/run1/parse/run1_3_like1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Red /color Red /line-style Solid /line-width 0.9\
+  --draw-marker 0.5514325607090277,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.25941420897232337,0.015 Bullet /color 'Black' /scale 0.6 \
+  --draw-marker 0.2,0.017499999999999998 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.2,0.017499999999999998 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

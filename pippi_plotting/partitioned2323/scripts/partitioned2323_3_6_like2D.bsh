@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Nov 26 17:07:46 2024
+ctioga2\
+  --name partitioned2323_3_6_like2D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.21000000000000002,0.05,0.05,0.16\
+  --xrange 0.00026877016664373504:0.8294594287872314\
+  --yrange 0.0006121397018432617:0.7763715478919895\
+  --ylabel '$f_{^{241}Pu}$' /shift 2.9\
+  --xlabel '$f_{^{235}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --plot ../..//partitioned2323/parse/partitioned2323_3_6_like2D.ct2@1:2:3 /color-map '#fff--#fff(contour3)--#292(0.04599999999999993)--#fff(0.04599999999999993)--#929(0.31700000000000006)--#f55(0.31700000000000006)--#000'\
+  --plot ../..//partitioned2323/parse/partitioned2323_3_6_like2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.31700000000000006 /color Black /style Solid /width 0.9\
+  --draw-contour 0.04599999999999993 /color Black /style Solid /width 0.9\
+  --draw-marker 0.27842398808316526,0.1629780606105815 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 0.2788559694749802,0.2580626468778357 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --draw-marker 0.2,0.3 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.2,0.3 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
