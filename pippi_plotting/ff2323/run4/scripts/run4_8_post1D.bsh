@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Dec 10 14:01:28 2024
+ctioga2\
+  --name run4_8_post1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.000585502675921435:0.5169092519327715\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fuel fraction $F_{^{235}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.000585502675921435,0.5359376674601614 0.5169092519327715,0.5359376674601614 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.02382007139247969,0.5409376674601614 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.000585502675921435,0.1277216745247855 0.5169092519327715,0.1277216745247855 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.02382007139247969,0.1327216745247855 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//ff2323/run4/parse/run4_8_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 0.20363030781123204,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.19941330629702658,0.015 Bullet /color 'Black' /scale 0.6 \
+  --draw-marker 0.2,0.017499999999999998 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.2,0.017499999999999998 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

@@ -21,13 +21,13 @@ def get_spectrum(filename):
 FLUX_ENU_MIN = 12.5*keV
 FLUX_ENU_MAX = 12.5*MeV - 12.5*keV
 
-fissile_isotopes_txtfile_format = ['u235', 'u238', 'pu239', 'pu241']
+FISSILE_ISOTOPES_TXTFILE_FORMAT = ['u235', 'u238', 'pu239', 'pu241']
 spectrum_source = 'bestiole'
 
 fission_spectra_data = []
 fission_spectra = []
 
-for fi in fissile_isotopes_txtfile_format:
+for fi in FISSILE_ISOTOPES_TXTFILE_FORMAT:
     spec = get_spectrum(f"fluxData/{spectrum_source}_{fi}.txt")
     fission_spectra_data.append(spec)
 

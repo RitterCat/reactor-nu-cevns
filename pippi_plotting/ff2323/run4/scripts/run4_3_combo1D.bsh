@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Dec 10 14:01:28 2024
+ctioga2\
+  --name run4_3_combo1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 6.777478571006792e+18:1.1591866775599284e+19\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fission rate $f_{^{238}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 6.777478571006792e+18,0.4932945539655939 1.1591866775599284e+19,0.4932945539655939 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 6.994126040213454e+18,0.4982945539655939 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 6.777478571006792e+18,0.1130589984072162 1.1591866775599284e+19,0.1130589984072162 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 6.994126040213454e+18,0.1180589984072162 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 6.777478571006792e+18,0.6061413709433687 1.1591866775599284e+19,0.6061413709433687 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 6.994126040213454e+18,0.6111413709433687 '68.3\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 6.777478571006792e+18,0.13658649102558368 1.1591866775599284e+19,0.13658649102558368 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 6.994126040213454e+18,0.14158649102558368 '95.4\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//ff2323/run4/parse/run4_3_like1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Red /color Red /line-style Solid /line-width 0.9\
+  --plot ../../..//ff2323/run4/parse/run4_3_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 8.985384515669131e+18,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 8.991823153208061e+18,0.015 Bullet /color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

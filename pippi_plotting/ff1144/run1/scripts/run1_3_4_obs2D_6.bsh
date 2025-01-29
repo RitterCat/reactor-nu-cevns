@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Sat Nov 30 16:04:12 2024
+ctioga2\
+  --name run1_3_4_obs2D_6  --plot-scale '1.1'\
+  --page-size '12.5cm x 4in'\
+  --frame-margins 0.19,0.18,0.05,0.16\
+  --xrange 1.520950903436461e+16:1.3403096033316866e+19\
+  --yrange 9587169927337102.0:3.9947107303188234e+19\
+  --ylabel 'fission rate $f_{^{239}Pu}$ (s$^{-1}$)' /shift 2.9\
+  --xlabel 'fission rate $f_{^{238}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --plot ../../..//ff1144/run1/parse/run1_3_4_obs2D_6.ct2@1:2:3 /color-map 'hls:White(0.6245340135726118)--Red(0.6308424379521331)--Green(1.4060999084934862)'\
+  --plot ../../..//ff1144/run1/parse/run1_3_4_like2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.31700000000000006 /color Black /style Solid /width 0.9\
+  --draw-contour 0.04599999999999993 /color Black /style Solid /width 0.9\
+  --draw-marker 3.320598093483066e+18,1.402319305481309e+19 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 2.463405166181371e+18,1.0779491743186622e+19 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
+  --xyz-map\
+  --new-zaxis zvalues /location right /bar_size '0.5cm'\
+  --label-style zvalues /angle 270 /shift 0.4  /valign 'midheight'\
+  --y2 --plot ../../..//ff1144/run1/parse/run1_3_4_obs2D_6_colorbar.ct2@1:2:3 /zaxis zvalues /color-map 'hls:White(0.6245340135726118)--Red(0.6308424379521331)--Green(1.4060999084934862)' /fill-transparency 1\
+  --axis-style y /decoration ticks --yrange 9587169927337102.0:3.9947107303188234e+19\
+  --ylabel 'thermal power (GW)' /shift 3.5 /angle 180 /scale 0.8\

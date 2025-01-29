@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Dec 10 15:09:36 2024
+ctioga2\
+  --name run3_9_11_post2D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.21000000000000002,0.05,0.05,0.16\
+  --xrange 0.1:0.4\
+  --yrange 0.1:0.4\
+  --ylabel 'fuel fraction $F_{^{241}\mathrm{Pu}}$' /shift 2.9\
+  --xlabel 'fuel fraction $F_{^{238}\mathrm{U}}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --plot ../../..//ff2323/run3/parse/run3_9_11_post2D.ct2@1:2:3 /color-map '#fff--#fff(contour3)--#29d(0.04174890592304814)--#fff(0.04174890592304814)--#929(0.2902939705808973)--#f55(0.2902939705808973)--#000'\
+  --plot ../../..//ff2323/run3/parse/run3_9_11_post2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.2902939705808973 /color Black /style Solid /width 0.9\
+  --draw-contour 0.04174890592304814 /color Black /style Solid /width 0.9\
+  --draw-marker 0.3001769321130503,0.298209887495156 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 0.3000730187299308,0.29995065791781306 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --draw-marker 0.3,0.3 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.3,0.3 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

@@ -5,6 +5,8 @@
 from lib.lib_rates import *
 from scipy.stats import poisson, norm
 import pymultinest
+import matplotlib.pyplot as plt
+import time
 
 ##########
 # SCRIPT #
@@ -12,20 +14,20 @@ import pymultinest
 
 if __name__ =='__main__':
 
-    ### FUNCTION TO GET BINNED EVENTS ###
+    ### SET-UP OF TEST CONDITIONS ###
 
     # specify detector material and properties
     detector_material = 'Xe'
     mT = mTarget(detector_material)
-    offset = 10*METER
+    offset = 25*METER
 
-    threshold = eV
-    exposure=1000*KILOGRAM*YEAR
+    threshold = 0.3*keV
+    exposure=10*KILOGRAM*YEAR
 
     # specify reactor propeties (including true fuel fractions)
-    mean_thermal_power = GIGAWATT
+    mean_thermal_power = 3*GIGAWATT
     thermal_power_var = 0.1*mean_thermal_power # only need this if thermal power is a prior
-    true_fuel_fractions = np.array([0.1, 0.1, 0.4, 0.4])
+    true_fuel_fractions = np.array([0.561, 0.076, 0.307, 0.056])
 
     # then calculate true fission rate per isotope, which is what we input into the rate calculation
     mean_energy_per_fission = sum(true_fuel_fractions*ENERGY_PER_FISSION_I)
@@ -35,11 +37,13 @@ if __name__ =='__main__':
     max_fission_rate = 2*true_total_fission_rate # This is going to be used as the upper limit on my fission rate priors
 
     # specify bin properties (nbins, ERmin, ERmax)
-    nbins = 50
+    nbins = 5 # this is a stand-in for the energy resolution of the reactor
     ER_min = threshold
     ER_max = get_ER_max(FLUX_ENU_MAX, mT)
 
     bin_edges = np.logspace(np.log10(ER_min), np.log10(ER_max), nbins+1)
+
+    ### BIN COUNTS ###
 
     def get_bin_counts(fission_rate_per_isotope, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
         bin_counts = []
@@ -51,7 +55,7 @@ if __name__ =='__main__':
     
     true_bin_counts = get_bin_counts(true_fission_rate_per_isotope)
 
-    ### CUBE ###
+    ### PRIOR ###
 
     def prior(cube, ndim, nparams):
         # The first four cube entries here are just the fission rates for each isotope
@@ -70,7 +74,7 @@ if __name__ =='__main__':
 
         cube[5] = f3 + f4 # total fission rate of plutonium
 
-        # the following four parameters are the 
+        # the following four parameters are the fuel fractions of each isotope
         total_fission_rate = sum(fission_rates)
         fuel_fractions = fission_rates/total_fission_rate
         cube[6] = fuel_fractions[0]
@@ -138,6 +142,53 @@ if __name__ =='__main__':
     nparams = 10
 
     pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
-                outputfiles_basename="out/ff2323/run3", verbose=True,
+                outputfiles_basename="out/RELICS/run1", verbose=True,
                 importance_nested_sampling = False, resume = False, n_live_points = 250,
                 sampling_efficiency=0.8, evidence_tolerance=0.5)
+
+    #################
+    ### TIME TEST ###
+    #################
+
+    # The point of this function is to test how long each sampling step will take,
+    # which will give an indication of how long the overall run will take 
+    # (at least ~5000 times as long)
+
+    def time_test(nbins, threshold, exposure):
+        ER_min = threshold
+        ER_max = get_ER_max(FLUX_ENU_MAX, mT)
+
+        bin_edges = np.logspace(np.log10(ER_min), np.log10(ER_max), nbins+1)
+        true_bin_counts = []
+        test_bin_counts = []
+
+        test_fission_rate_per_isotope = true_total_fission_rate*np.array([0,0,0.5,0.5])
+
+        start = time.time()
+        for i in range(nbins):
+            true_bin_counts.append(np.floor(quad(
+                dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, true_fission_rate_per_isotope, offset)
+                )[0]*exposure))
+            
+            test_bin_counts.append(np.floor(quad(
+                dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, test_fission_rate_per_isotope, offset)
+                )[0]*exposure))
+            
+        end = time.time()
+
+        print(true_bin_counts)
+        print(test_bin_counts)
+
+        fig, ax = plt.subplots(figsize=(5,7))
+
+        ax.step(bin_edges[:-1], true_bin_counts)
+        ax.step(bin_edges[:-1], test_bin_counts)
+
+        ax.set_yscale('log')
+        ax.set_xscale('log')
+
+        plt.show()
+
+        return(end - start)
+
+    # print(time_test(20, 0.1*eV, 1000*KILOGRAM*YEAR))

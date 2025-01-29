@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Dec 10 15:09:36 2024
+ctioga2\
+  --name run3_2_3_post2D  --plot-scale '1.1'\
+  --page-size '12.5cm x 4in'\
+  --frame-margins 0.19,0.18,0.05,0.16\
+  --xrange 2.5810535818491876e+16:1.268546550093127e+19\
+  --yrange 6.841759577979111e+18:1.1139485073398178e+19\
+  --ylabel 'fission rate $f_{^{238}\mathrm{U}}$ (s$^{-1}$)' /shift 2.9\
+  --xlabel 'fission rate $f_{^{235}\mathrm{U}}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --new-zaxis zvalues /location right /bar_size '0.5cm'\
+  --label-style zvalues /angle 270 /shift 0.4  /valign 'midheight'\
+  --plot ../../..//ff2323/run3/parse/run3_2_3_post2D.ct2@1:2:3 /zaxis zvalues /color-map '#fff--#fff(contour3)--#29d(0.0447084311575083)--#fff(0.0447084311575083)--#929(0.3226535420065999)--#f55(0.3226535420065999)--#000'\
+  --plot ../../..//ff2323/run3/parse/run3_2_3_post2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.3226535420065999 /color Black /style Solid /width 0.9\
+  --draw-contour 0.0447084311575083 /color Black /style Solid /width 0.9\
+  --draw-marker 6.035158283995851e+18,9.00137516139271e+18 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 5.991571755252701e+18,8.997733577609343e+18 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
+  --y2 --plot ../../..//ff2323/run3/parse/run3_2_3_post2D.ct2@1:2:3 /fill-transparency 1\
+  --axis-style y /decoration ticks --yrange 6.841759577979111e+18:1.1139485073398178e+19\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 3.5 /angle 180 /scale 0.8\
