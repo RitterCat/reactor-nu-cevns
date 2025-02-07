@@ -28,7 +28,9 @@ def dsigma_dER(ER, Enu, isotope):
 
 def dR_dER(ER, detector_material, fission_rate_per_isotope, L): # fuel_fractions, thermal_power
     
-    flux = lambda Enu: reactor_flux(Enu, fission_rate_per_isotope) # fuel_fractions, thermal_power
+    # flux = lambda Enu: reactor_flux(Enu, fission_rate_per_isotope) # fuel_fractions, thermal_power
+    
+    flux = reactor_flux(fission_rate_per_isotope) # fuel_fractions, thermal_power
 
     flux_Enu_min, flux_Enu_max = FLUX_ENU_MIN, FLUX_ENU_MAX
 

@@ -33,12 +33,25 @@ for fi in FISSILE_ISOTOPES_TXTFILE_FORMAT:
 
     fission_spectra.append(CubicSpline(*spec, extrapolate=False))
 
-def reactor_flux_old(Enu, fuel_fractions, thermal_power):
-    norm_fuel_fractions = np.array(fuel_fractions)/sum(fuel_fractions)
+# def reactor_flux_old(Enu, fuel_fractions, thermal_power):
+#     norm_fuel_fractions = np.array(fuel_fractions)/sum(fuel_fractions)
 
-    mean_energy_per_fission = sum(norm_fuel_fractions*ENERGY_PER_FISSION_I)
+#     mean_energy_per_fission = sum(norm_fuel_fractions*ENERGY_PER_FISSION_I)
 
-    return (thermal_power/mean_energy_per_fission)*sum([fi*spec(Enu) for fi, spec in zip (norm_fuel_fractions, fission_spectra)])
+#     return (thermal_power/mean_energy_per_fission)*sum([fi*spec(Enu) for fi, spec in zip (norm_fuel_fractions, fission_spectra)])
 
-def reactor_flux(Enu, fission_rate_per_isotope):
-    return sum([fission_rate*spec(Enu) for fission_rate, spec in zip (fission_rate_per_isotope, fission_spectra)])
+# def reactor_flux(Enu, fission_rate_per_isotope):
+#     return sum([fission_rate*spec(Enu) for fission_rate, spec in zip (fission_rate_per_isotope, fission_spectra)])
+
+def reactor_flux(fission_rate_per_isotope):
+    return lambda Enu: sum([fission_rate*spec(Enu) for fission_rate, spec in zip (fission_rate_per_isotope, fission_spectra)])
+
+def get_reactor_flux_Pth_fuel_fractions(thermal_power, fuel_fractions):
+    fuel_fractions = np.array(fuel_fractions) # make sure the fuel fractions are an array
+
+    # then calculate true fission rate per isotope, which is what we input into the rate calculation
+    mean_energy_per_fission = sum(fuel_fractions*ENERGY_PER_FISSION_I)
+    total_fission_rate = thermal_power/mean_energy_per_fission
+    fission_rate_per_isotope = total_fission_rate*fuel_fractions
+
+    return reactor_flux(fission_rate_per_isotope)
