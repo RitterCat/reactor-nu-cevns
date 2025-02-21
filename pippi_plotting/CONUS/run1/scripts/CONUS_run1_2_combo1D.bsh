@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Feb 19 13:41:03 2025
+ctioga2\
+  --name CONUS_run1_2_combo1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 1.4255961332359805e+17:9.20899981183449e+19\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fission rate $f_{^{235}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 1.4255961332359805e+17,0.4404295717353049 9.20899981183449e+19,0.4404295717353049 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 4.2801943460495565e+18,0.4454295717353049 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 1.4255961332359805e+17,0.14824399455018514 9.20899981183449e+19,0.14824399455018514 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 4.2801943460495565e+18,0.15324399455018514 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 1.4255961332359805e+17,0.6061413709433687 9.20899981183449e+19,0.6061413709433687 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 4.2801943460495565e+18,0.6111413709433687 '68.3\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 1.4255961332359805e+17,0.13658649102558368 9.20899981183449e+19,0.13658649102558368 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 4.2801943460495565e+18,0.14158649102558368 '95.4\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//CONUS/run1/parse/CONUS_run1_2_like1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Red /color Red /line-style Solid /line-width 0.9\
+  --plot ../../..//CONUS/run1/parse/CONUS_run1_2_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 2.2232287981637657e+19,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 2.785727296217243e+19,0.015 Bullet /color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

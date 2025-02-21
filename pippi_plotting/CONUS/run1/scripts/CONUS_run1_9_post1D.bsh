@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Feb 19 13:41:03 2025
+ctioga2\
+  --name CONUS_run1_9_post1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.0001972751715807324:0.7840812813162915\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fuel fraction $F_{^{238}U}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.0001972751715807324,0.5434022767178408 0.7840812813162915,0.5434022767178408 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.03547205544809272,0.5484022767178408 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.0001972751715807324,0.12245148525736346 0.7840812813162915,0.12245148525736346 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.03547205544809272,0.12745148525736347 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//CONUS/run1/parse/CONUS_run1_9_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 0.10966816703283265,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.13478407350898913,0.015 Bullet /color 'Black' /scale 0.6 \
+  --draw-marker 0.08,0.017499999999999998 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.08,0.017499999999999998 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Feb 19 13:41:03 2025
+ctioga2\
+  --name CONUS_run1_4_5_combo2D  --plot-scale '1.1'\
+  --page-size '12.5cm x 4in'\
+  --frame-margins 0.19,0.18,0.05,0.16\
+  --xrange 5.018332864932716e+16:1.0898640884644268e+20\
+  --yrange 2.4142644974278444e+16:8.327200419822218e+19\
+  --ylabel 'fission rate $f_{^{241}Pu}$ (s$^{-1}$)' /shift 2.9\
+  --xlabel 'fission rate $f_{^{239}Pu}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0\
+  --xyz-map\
+  --new-zaxis zvalues /location right /bar_size '0.5cm'\
+  --label-style zvalues /angle 270 /shift 0.4  /valign 'midheight'\
+  --plot ../../..//CONUS/run1/parse/CONUS_run1_4_5_post2D.ct2@1:2:3 /zaxis zvalues /color-map '#fff--#fff(contour3)--#29d(0.035025128143130586)--#fff(0.035025128143130586)--#929(0.15755287994876144)--#f55(0.15755287994876144)--#000'\
+  --plot ../../..//CONUS/run1/parse/CONUS_run1_4_5_like2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.31700000000000006 /color Grey /style Solid /width 0.9\
+  --draw-contour 0.04599999999999993 /color Grey /style Solid /width 0.9\
+  --plot ../../..//CONUS/run1/parse/CONUS_run1_4_5_post2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.15755287994876144 /color Black /style Solid /width 0.9\
+  --draw-contour 0.035025128143130586 /color Black /style Solid /width 0.9\
+  --draw-marker 3.691016715232647e+19,3.560843679687804e+19 Star /fill-color 'Grey' /stroke-color 'Grey' /scale 0.8 \
+  --draw-marker 3.405799868479318e+19,2.9217598910642934e+19 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
+  --y2 --plot ../../..//CONUS/run1/parse/CONUS_run1_4_5_post2D.ct2@1:2:3 /fill-transparency 1\
+  --axis-style y /decoration ticks --yrange 2.4142644974278444e+16:8.327200419822218e+19\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 3.5 /angle 180 /scale 0.8\
