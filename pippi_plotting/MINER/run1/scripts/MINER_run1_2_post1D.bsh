@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Fri Mar  7 13:59:33 2025
+ctioga2\
+  --name MINER_run1_2_post1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 2637040322672128.5:2.3102668282836234e+18\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fission rate $f_{^{235}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 2637040322672128.5,0.36932574224649745 2.3102668282836234e+18,0.36932574224649745 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 1.0648038078091493e+17,0.37432574224649745 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 2637040322672128.5,0.10376072539241826 2.3102668282836234e+18,0.10376072539241826 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 1.0648038078091493e+17,0.10876072539241827 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//MINER/run1/parse/MINER_run1_2_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 1.159608383971141e+18,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 6.500909383979041e+17,0.015 Bullet /color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

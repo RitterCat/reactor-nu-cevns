@@ -37,6 +37,8 @@ def get_arguments():
 
     parser.add('--resume', action='store_true', default=False, help="Make the pymultinest run resume from a previous state")
 
+    parser.add('--power_prior', action='store_true', default=False, help="Use the knowledge of the reactor power as a prior")
+
     # Parse the command line arguments
     args = parser.parse_args()
 
@@ -125,6 +127,10 @@ def main():
         for bc, tbc in zip(bin_counts, true_bin_counts):
             logPoisson = poisson.logpmf(bc, tbc)
             loglikelihood += logPoisson
+
+        if args.power_prior:
+            logNorm = norm.logpdf(cube[4], loc=thermal_power, scale=0.05*thermal_power)
+            loglikelihood += logNorm
         
         return loglikelihood
 

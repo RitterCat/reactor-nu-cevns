@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Fri Mar  7 13:59:34 2025
+ctioga2\
+  --name MINER_run1_2_5_post2D  --plot-scale '1.1'\
+  --page-size '12.5cm x 4in'\
+  --frame-margins 0.19,0.18,0.05,0.16\
+  --xrange 2637040322672128.5:2.3102668282836234e+18\
+  --yrange 1272062275560291.8:2.650342487178356e+18\
+  --ylabel 'fission rate $f_{^{241}Pu}$ (s$^{-1}$)' /shift 2.9\
+  --xlabel 'fission rate $f_{^{235}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --new-zaxis zvalues /location right /bar_size '0.5cm'\
+  --label-style zvalues /angle 270 /shift 0.4  /valign 'midheight'\
+  --plot ../../..//MINER/run1/parse/MINER_run1_2_5_post2D.ct2@1:2:3 /zaxis zvalues /color-map '#fff--#fff(contour3)--#29d(0.033350869552574915)--#fff(0.033350869552574915)--#929(0.13548103046814433)--#f55(0.13548103046814433)--#000'\
+  --plot ../../..//MINER/run1/parse/MINER_run1_2_5_post2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.13548103046814433 /color Black /style Solid /width 0.9\
+  --draw-contour 0.033350869552574915 /color Black /style Solid /width 0.9\
+  --draw-marker 1.159608383971141e+18,1.0702726899079265e+18 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 6.500909383979041e+17,9.573957313579135e+17 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
+  --y2 --plot ../../..//MINER/run1/parse/MINER_run1_2_5_post2D.ct2@1:2:3 /fill-transparency 1\
+  --axis-style y /decoration ticks --yrange 1272062275560291.8:2.650342487178356e+18\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 3.5 /angle 180 /scale 0.8\

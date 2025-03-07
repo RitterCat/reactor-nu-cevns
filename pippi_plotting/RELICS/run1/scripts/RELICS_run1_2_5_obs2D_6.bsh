@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Fri Mar  7 13:55:51 2025
+ctioga2\
+  --name RELICS_run1_2_5_obs2D_6  --plot-scale '1.1'\
+  --page-size '12.5cm x 4in'\
+  --frame-margins 0.19,0.18,0.05,0.16\
+  --xrange 1.6521726722765728e+17:8.162144637348392e+19\
+  --yrange 3.374793458005115e+16:7.59203077627744e+19\
+  --ylabel 'fission rate $f_{^{241}Pu}$ (s$^{-1}$)' /shift 2.9\
+  --xlabel 'fission rate $f_{^{235}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.75 /angle -90.0  /valign 'midheight'\
+  --xyz-map\
+  --plot ../../..//RELICS/run1/parse/RELICS_run1_2_5_obs2D_6.ct2@1:2:3 /color-map 'hls:White(1.9010034975336267)--Red(1.9202055530642694)--Green(4.238340191013403)'\
+  --plot ../../..//RELICS/run1/parse/RELICS_run1_2_5_like2D.ct2@1:2:3 /fill-transparency 1\
+  --draw-contour 0.31700000000000006 /color Black /style Solid /width 0.9\
+  --draw-contour 0.04599999999999993 /color Black /style Solid /width 0.9\
+  --draw-marker 5.156164024714731e+19,8.039825818310862e+18 Star /fill-color 'Black' /stroke-color 'Black' /scale 0.8 \
+  --draw-marker 3.6401527109306073e+19,2.0541019767869768e+19 Bullet /fill-color 'Black' /stroke-color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
+  --xyz-map\
+  --new-zaxis zvalues /location right /bar_size '0.5cm'\
+  --label-style zvalues /angle 270 /shift 0.4  /valign 'midheight'\
+  --y2 --plot ../../..//RELICS/run1/parse/RELICS_run1_2_5_obs2D_6_colorbar.ct2@1:2:3 /zaxis zvalues /color-map 'hls:White(1.9010034975336267)--Red(1.9202055530642694)--Green(4.238340191013403)' /fill-transparency 1\
+  --axis-style y /decoration ticks --yrange 3.374793458005115e+16:7.59203077627744e+19\
+  --ylabel 'thermal power (GW)' /shift 3.5 /angle 180 /scale 0.8\

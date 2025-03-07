@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Fri Mar  7 13:55:51 2025
+ctioga2\
+  --name RELICS_run1_3_post1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 7361298354576985.0:2.923032637376144e+19\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fission rate $f_{^{238}U}$ (s$^{-1}$)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 7361298354576985.0,0.5441564229379334 2.923032637376144e+19,0.5441564229379334 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 1.3223947267478858e+18,0.5491564229379334 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 7361298354576985.0,0.16586820082171408 2.923032637376144e+19,0.16586820082171408 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 1.3223947267478858e+18,0.17086820082171408 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//RELICS/run1/parse/RELICS_run1_3_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 5.661789133487862e+18,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 5.50954471888953e+18,0.015 Bullet /color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
