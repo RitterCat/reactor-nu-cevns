@@ -26,6 +26,7 @@ def get_arguments():
                help="Path to the configuration file for the properties of the nuclear reactor")
     parser.add('--thermal_power', type=float, help="Reactor power (in gigawatt)")
     parser.add('--true_fuel_fractions', type=str, help="A comma-delimited string of the true fuel fractions")
+    parser.add('--plutonium_rate', type=float, help="The rate of production of plutonium in the breeding blanket (in kg/year)")
 
     parser.add('-p', '--pymultinest-config', is_config_file=True,
                help="Path to the configuration file that contains options for the pymultinest run")
@@ -60,6 +61,11 @@ def main():
     thermal_power = args.thermal_power*GIGAWATT
     true_fuel_fractions = np.array([float(f) for f in args.true_fuel_fractions.split(',')])
 
+    plutonium_rate = args.plutonium_rate*KILOGRAM/YEAR
+    true_breeding_rate = plutonium_rate/M_PU239
+
+    max_breeding_rate = 2*true_breeding_rate
+
     # calculate true fission rate per isotope, which is what we input into the rate calculation
     mean_energy_per_fission = sum(true_fuel_fractions*ENERGY_PER_FISSION_I)
     true_total_fission_rate = thermal_power/mean_energy_per_fission
@@ -79,15 +85,15 @@ def main():
 
     ### BIN COUNTS ###
 
-    def get_bin_counts(fission_rate_per_isotope, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
+    def get_bin_counts(fission_rate_per_isotope, breeding_rate=0, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
         bin_counts = []
         for i in range(nbins):
             bin_counts.append(np.floor(quad(
-                dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, fission_rate_per_isotope, offset)
+                dR_dER, bin_edges[i], bin_edges[i+1], args=(detector_material, offset, fission_rate_per_isotope, breeding_rate)
                 )[0]*exposure))
         return bin_counts
     
-    true_bin_counts = get_bin_counts(true_fission_rate_per_isotope)
+    true_bin_counts = get_bin_counts(true_fission_rate_per_isotope, true_breeding_rate)
 
     ### PRIOR ###
 
@@ -103,25 +109,31 @@ def main():
         cube[2] = f3
         cube[3] = f4
 
-        # Now I am storing other parameters in the following cube entries
-        cube[4] = sum(fission_rates*ENERGY_PER_FISSION_I) # total power
+        # The fifth cube entry is the breeding rate
+        breeding_rate = cube[4]*max_breeding_rate
+        cube[4] = breeding_rate
 
-        cube[5] = f3 + f4 # total fission rate of plutonium
+        # Now I am storing other parameters in the following cube entries
+        cube[5] = sum(fission_rates*ENERGY_PER_FISSION_I) # total power
+
+        cube[6] = f3 + f4 # total fission rate of plutonium
 
         # the following four parameters are the fuel fractions of each isotope
         total_fission_rate = sum(fission_rates)
         fuel_fractions = fission_rates/total_fission_rate
-        cube[6] = fuel_fractions[0]
-        cube[7] = fuel_fractions[1]
-        cube[8] = fuel_fractions[2]
-        cube[9] = fuel_fractions[3]
+        cube[7] = fuel_fractions[0]
+        cube[8] = fuel_fractions[1]
+        cube[9] = fuel_fractions[2]
+        cube[10] = fuel_fractions[3]
 
     ### LOGLIKE ###
 
     def loglike(cube, ndim, nparams):
         fission_rates = cube[:4]
 
-        bin_counts = get_bin_counts(fission_rates)
+        breeding_rate = cube[4]
+
+        bin_counts = get_bin_counts(fission_rates, breeding_rate)
 
         loglikelihood = 0
         for bc, tbc in zip(bin_counts, true_bin_counts):
@@ -134,8 +146,8 @@ def main():
         
         return loglikelihood
 
-    ndims = 4
-    nparams = 10
+    ndims = 5
+    nparams = 11
     
     outputfiles_basename = args.outputfiles_basename
 

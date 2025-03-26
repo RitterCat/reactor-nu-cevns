@@ -45,7 +45,7 @@ if __name__ =='__main__':
 
     ### BIN COUNTS ###
 
-    def get_bin_counts(fission_rate_per_isotope, detector_material=detector_material, bin_edges=bin_edges, offset=offset):
+    def get_bin_counts(fission_rate_per_isotope, offset=offset, detector_material=detector_material, bin_edges=bin_edges):
         bin_counts = []
         for i in range(nbins):
             bin_counts.append(np.floor(quad(
