@@ -31,7 +31,7 @@ fission_spectra_data = []
 fission_spectra = []
 
 for fi in FISSILE_ISOTOPES_TXTFILE_FORMAT:
-    spec = get_spectrum(f"../fluxData/{spectrum_source}_{fi}.txt") # Locally, use ./ and on spartan, use ../
+    spec = get_spectrum(f"./fluxData/{spectrum_source}_{fi}.txt") # Locally, use ./ and on spartan, use ../
     fission_spectra_data.append(spec)
 
     fission_spectra.append(CubicSpline(*spec, extrapolate=False))

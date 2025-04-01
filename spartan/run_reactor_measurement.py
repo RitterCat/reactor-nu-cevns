@@ -30,9 +30,9 @@ def get_arguments():
 
     parser.add('-p', '--pymultinest-config', is_config_file=True,
                help="Path to the configuration file that contains options for the pymultinest run")
-    parser.add('--sampling_efficiency', default=0.8)
-    parser.add('--evidence_tolerance', default=0.5)
-    parser.add('--n_live_points', default=250)
+    parser.add('--sampling_efficiency', type=float, default=0.8)
+    parser.add('--evidence_tolerance', type=float, default=0.5)
+    parser.add('--n_live_points', type=int, default=250)
 
     parser.add('-o', '--outputfiles_basename', type=str)
 
