@@ -18,7 +18,7 @@ def get_arguments():
     parser.add('--threshold', type=float, help="Threshold of the neutrino detector (in keV)")
     parser.add('--exposure', type=float, help="Exposure of the neutrino detector (in kg year)")
     parser.add('--er_max', type=float, default=0, help="The upper recoil energy region of interest (in keV)")
-    parser.add('--background_rate', type=float, default=0, help="The rate of background events (in events/day/kg/keV)")
+    parser.add('--background_rate', type=float, help="The rate of background events (in events/day/kg/keV)")
     parser.add('--nbins', type=int, 
                help="""Number of bins between the threshold and the 
                max recoil energy in the neutrino detector""")
@@ -98,10 +98,14 @@ def main():
             bin_width = bin_edges[i+1] - bin_edges[i]            
             background_counts = background_rate*exposure*bin_width
 
+            print(cevns_counts, background_counts)
+
             bin_counts.append(np.floor(cevns_counts + background_counts))
         return bin_counts
     
     true_bin_counts = get_bin_counts(true_fission_rate_per_isotope, true_breeding_rate)
+
+    print(true_bin_counts)
 
     ### PRIOR ###
 
@@ -164,10 +168,10 @@ def main():
     n_live_points = args.n_live_points
             
 
-    pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
-            outputfiles_basename=f"/data/gpfs/projects/punim0011/ritter/reactor_nu/out/{outputfiles_basename}", 
-                verbose=True, importance_nested_sampling = False, resume = args.resume, 
-                n_live_points=n_live_points, sampling_efficiency=sampling_efficiency, evidence_tolerance=evidence_tolerance)
+    # pymultinest.run( loglike, prior, n_dims=ndims, n_params = nparams,
+    #         outputfiles_basename=f"/data/gpfs/projects/punim0011/ritter/reactor_nu/out/{outputfiles_basename}", 
+    #             verbose=True, importance_nested_sampling = False, resume = args.resume, 
+    #             n_live_points=n_live_points, sampling_efficiency=sampling_efficiency, evidence_tolerance=evidence_tolerance)
 
 if __name__ =='__main__':
     main()

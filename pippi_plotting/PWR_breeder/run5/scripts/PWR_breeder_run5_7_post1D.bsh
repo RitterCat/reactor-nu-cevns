@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Wed Apr  2 16:40:48 2025
+ctioga2\
+  --name PWR_breeder_run5_7_post1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.8634046979245205:1.1451986839233401\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'thermal power (GW)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.8634046979245205,0.6137504838587319 1.1451986839233401,0.6137504838587319 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.8760854272944674,0.6187504838587319 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.8634046979245205,0.2110813759252882 1.1451986839233401,0.2110813759252882 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.8760854272944674,0.2160813759252882 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//PWR_breeder/run5/parse/PWR_breeder_run5_7_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 0.9962777532314007,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.9996924557952583,0.015 Bullet /color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
