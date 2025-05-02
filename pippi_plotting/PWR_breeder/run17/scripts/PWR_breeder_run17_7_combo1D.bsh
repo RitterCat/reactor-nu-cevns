@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Fri May  2 15:10:27 2025
+ctioga2\
+  --name PWR_breeder_run17_7_combo1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.6590129334103892:1.4098552515971736\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'thermal power (GW)'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.6590129334103892,0.5617553929486059 1.4098552515971736,0.5617553929486059 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.6928008377287945,0.5667553929486059 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.6590129334103892,0.11842214664702398 1.4098552515971736,0.11842214664702398 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.6928008377287945,0.12342214664702399 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.6590129334103892,0.6061413709433687 1.4098552515971736,0.6061413709433687 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 0.6928008377287945,0.6111413709433687 '68.3\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.6590129334103892,0.13658649102558368 1.4098552515971736,0.13658649102558368 /color 'Red' /style Dashes /width 0.45\
+  --draw-text 0.6928008377287945,0.14158649102558368 '95.4\%CL' /color 'Red' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//PWR_breeder/run17/parse/PWR_breeder_run17_7_like1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Red /color Red /line-style Solid /line-width 0.9\
+  --plot ../../..//PWR_breeder/run17/parse/PWR_breeder_run17_7_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 1.021559260198284,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.9983725011499421,0.015 Bullet /color 'Black' /scale 0.6 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\

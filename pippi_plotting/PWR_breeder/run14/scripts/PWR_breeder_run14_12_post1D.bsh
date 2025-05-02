@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# This plot script created by pippi v2.2 on Tue Apr 15 14:38:46 2025
+ctioga2\
+  --name PWR_breeder_run14_12_post1D  --plot-scale '1.1'\
+  --page-size '11cm x 4in'\
+  --frame-margins 0.16,0.03,0.05,0.16\
+  --xrange 0.000894925098879993:0.8954486611727768\
+  --yrange 0:1\
+  --ylabel 'Relative probability $P/P_\mathrm{max}$' /shift 2.1\
+  --xlabel 'fuel fraction $F_{^{241}Pu}$'\
+  --label-style x /scale 1.0 /shift 0.15 --label-style y /scale 1.0 /shift 0.15 /angle -90.0\
+  --draw-line 0.000894925098879993,0.40399372602285094 0.8954486611727768,0.40399372602285094 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.04114984322220534,0.40899372602285095 '68.3\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --draw-line 0.000894925098879993,0.16807808726638931 0.8954486611727768,0.16807808726638931 /color 'Blue' /style Dashes /width 0.45\
+  --draw-text 0.04114984322220534,0.17307808726638932 '95.4\%CR' /color 'Blue' /scale 0.5 /justification left /alignment bottom\
+  --plot ../../..//PWR_breeder/run14/parse/PWR_breeder_run14_12_post1Dhist.ct2@1:2 /fill xaxis /fill-transparency 0.85 /fill-color Blue /color Blue /line-style Solid /line-width 0.9\
+  --draw-marker 0.2175663469016471,0.02 Star /color 'Black' /scale 0.8 \
+  --draw-marker 0.2674929633679474,0.015 Bullet /color 'Black' /scale 0.6 \
+  --draw-marker 0.07,0.017499999999999998 Cross /color 'Black' /scale 0.7 \
+  --draw-marker 0.07,0.017499999999999998 Times /color 'Yellow' /scale 0.7 \
+  --axis-style top /stroke_color 'Black'\
+  --axis-style bottom /stroke_color 'Black'\
+  --axis-style left /stroke_color 'Black'\
+  --axis-style right /stroke_color 'Black'\
